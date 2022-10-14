@@ -1,3 +1,10 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/80334e15-7161-461f-8609-41209702cece/deploy-status)](https://app.netlify.com/sites/jira-taskboard-rk/deploys)
+
+## App Screenshot
+
+![App Screenshot](/screely-1665744174320.png)
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
