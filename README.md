@@ -1,3 +1,8 @@
+## App Screenshot
+
+![App Screenshot](/screely-1665744174320.png)
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
