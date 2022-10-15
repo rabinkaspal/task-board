@@ -3,13 +3,11 @@ import Sidebar from "../../Sidebar";
 import ProjectMenu from "./ProjectMenu";
 import ProjectBoard from "./ProjectBoard";
 import NewIssue from "../../issues/NewIssue";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Modal from "../../Modal";
 import { useModalHelper } from "../../../hooks/useModalHelper";
-import history from "./../../../shared/utils/BrowserHistory";
 import IssueCreate from "../../forms/IssueCreate/IssueCreate";
 import IssueSearch from "../../forms/IssueSearch/IssueSearch";
-import IssueDetail from "../../forms/IssueDetail/IssueDetail";
 
 const ProjectPage = ({ project, updateProjectIssues }) => {
     const {
@@ -53,18 +51,12 @@ const ProjectPage = ({ project, updateProjectIssues }) => {
                     isOpen
                     onClose={issueCreateModalClose}
                     renderContent={modal => (
-                        <IssueCreate
-                            project={project}
-                            onCreate={() => history.back()}
-                            onClose={modal.close}
-                        />
+                        <IssueCreate project={project} onClose={modal.close} />
                     )}
                 />
             )}
 
-            <Routes>
-                <Route path="/" element={<Navigate to="board" />} />
-                {/* <Route
+            {/* <Route
                     path="board/issues/:issueId"
                     element={
                         <Modal
@@ -80,7 +72,21 @@ const ProjectPage = ({ project, updateProjectIssues }) => {
                         />
                     }
                 /> */}
+
+            <Routes>
+                {/* <Route path="/" element={<Navigate to="board" />} /> */}
                 <Route
+                    path="*"
+                    element={
+                        <ProjectBoard
+                            project={project}
+                            updateProjectIssues={updateProjectIssues}
+                        />
+                    }
+                    replace
+                />
+
+                {/* <Route
                     path="board/*"
                     element={
                         <ProjectBoard
@@ -88,9 +94,9 @@ const ProjectPage = ({ project, updateProjectIssues }) => {
                             updateProjectIssues={updateProjectIssues}
                         />
                     }
-                />
+                /> */}
 
-                <Route path="settings" element={<NewIssue />} />
+                <Route path="settings" element={<NewIssue />} replace />
             </Routes>
         </div>
     );

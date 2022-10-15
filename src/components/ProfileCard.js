@@ -1,8 +1,6 @@
 import React from "react";
-import { useLogin } from "../hooks/useLogin";
 
 const ProfileCard = ({ user }) => {
-    const { logOut } = useLogin();
     return (
         <>
             <div className="profile-card">

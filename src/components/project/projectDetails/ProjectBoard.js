@@ -6,9 +6,8 @@ import ProjectInfo from "./ProjectInfo";
 import IssueFilters from "../../issues/IssueFilters";
 import { IssueStatus } from "../../../constants";
 import Board from "../../Board";
-import { Routes, Route, useNavigate, useMatch } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Modal from "../../Modal";
-import IssueSearch from "../../forms/IssueSearch/IssueSearch";
 import IssueDetail from "../../forms/IssueDetail/IssueDetail";
 import history from "./../../../shared/utils/BrowserHistory";
 
@@ -18,13 +17,10 @@ import {
     getSortedListIssues,
     insertItemIntoArray,
 } from "../../../shared/utils/ArrayHelpers";
-import { useAuthContext } from "../../../context/AuthContext";
 
 const ProjectBoard = ({ project, updateProjectIssues }) => {
     const [filterIssuesUserIds, setFilterIssuesUserIds] = useState([]);
     const [filterText, setFilterText] = useState("");
-
-    const navigate = useNavigate();
 
     const url = history.location.pathname;
     console.log("history.location.pathname", url);

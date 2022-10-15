@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { BiPlus, BiSearch, BiLogOut } from "react-icons/bi";
+import { BiPlus } from "react-icons/bi";
 import { useAuthContext } from "../../../context/AuthContext";
 
 const ProjectHeader = ({ logOut }) => {
@@ -24,16 +24,16 @@ const ProjectHeader = ({ logOut }) => {
                 </NavItem> */}
                 <NavItem>
                     <ProfileButton>
-                        <img src={user.photoURL} />
+                        <img src={user.photoURL} alt={user.displayName} />
                         <UserInfo>
                             <p>
                                 <span>{user.displayName}</span>@
                                 {user.username || user.email.slice(0, -10)}
                             </p>
 
-                            <a href="#" onClick={logOut}>
+                            <button onClick={logOut}>
                                 <p>Log Out</p>
-                            </a>
+                            </button>
                         </UserInfo>
                     </ProfileButton>
                 </NavItem>
@@ -141,7 +141,9 @@ const UserInfo = styled.div`
             font-size: 16px;
         }
     }
-    & a {
+    & button {
+        width: 100%;
+        border: none;
         background: none;
         color: #000;
         padding: 0;

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import githubIcon from "../../images/svgs/github.svg";
 import { useLogin } from "../../hooks/useLogin";
@@ -17,7 +17,7 @@ const Login = () => {
         isPending,
     } = useLogin();
 
-    const { user, dispatch, authIsReady } = useAuthContext();
+    const { user, dispatch } = useAuthContext();
     console.log("user from state", user);
 
     useEffect(() => {

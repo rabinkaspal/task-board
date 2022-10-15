@@ -2,7 +2,6 @@ import React from "react";
 import { Droppable } from "react-beautiful-dnd";
 import IssueCard from "./issues/IssueCard";
 import { IssueStatusCopy } from "../constants";
-import { isUndefined } from "lodash";
 
 const Board = ({
     project,

@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo } from "react";
 import { useAuthContext } from "../../context/AuthContext";
 import { debounce } from "lodash";
-import { useCallback } from "react";
 
 const IssueFilters = ({
     projectUsers: users,
@@ -71,18 +70,18 @@ const IssueFilters = ({
             </div>
             <div className="textFilters">
                 {user && (
-                    <a
+                    <button
                         className={`button ${
                             isUserFilterSet(user.uid) ? "selected" : ""
                         }`}
                         onClick={() => setFilterUserIds(user.uid, true)}
                     >
                         <span>Only My Issues</span>
-                    </a>
+                    </button>
                 )}
-                <a className="button">
+                <button className="button">
                     <span>Recently Updated</span>
-                </a>
+                </button>
             </div>
         </div>
     );

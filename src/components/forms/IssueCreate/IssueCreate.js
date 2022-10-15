@@ -1,5 +1,5 @@
 import { Form, Formik } from "formik";
-import React, { Fragment } from "react";
+import React from "react";
 import { issueCreateSchema } from "../../../formSchemas";
 import Divider from "../../shared/Divider";
 import DropDown from "../DropDown";
@@ -15,7 +15,6 @@ import {
     arrayUnion,
     addDoc,
     Timestamp,
-    collectionGroup,
 } from "firebase/firestore";
 
 const topicOptions = [
@@ -27,50 +26,47 @@ const topicOptions = [
     { value: "5Kittens", label: "Kittens" },
 ];
 
-const IssueCreate = ({ onCreate, onClose, project }) => {
+const IssueCreate = ({ onClose, project }) => {
     //submit the form and closemodal
     const onSubmit = async (values, actions) => {
-        console.log("topics", values);
-
-        // try {
-        //     const docRef = await addDoc(collection(db, "issues"), {
-        //         description: values.description,
-        //         reporterId: values.reporter,
-        //         userIds: [values.assignee],
-        //         descriptionText: values.description,
-        //         listPosition: 0,
-        //         estimate: 0,
-        //         timeRemaining: 0,
-        //         timeSpent: 0,
-        //         projectId: project.id,
-        //         status: "backlog",
-        //         title: values.shortSummary,
-        //         type: values.issueType,
-        //         priority: values.priority,
-        //         createdAt: Timestamp.now(),
-        //     });
-
-        //     const projectIssues = {
-        //         id: docRef.id,
-        //         title: values.shortSummary,
-        //         userIds: [values.assignee],
-        //         listPosition: 0,
-        //         priority: values.priority,
-        //         status: "backlog",
-        //         type: values.issueType,
-        //     };
-
-        //     const issueRef = doc(db, "projects", project.id);
-        //     await updateDoc(issueRef, {
-        //         issues: arrayUnion(projectIssues),
-        //     });
-        // } catch (err) {
-        //     alert(err);
-        // }
-
-        // actions.resetForm();
-        // onClose();
+        console.log("topics", values.topics);
+        try {
+            const docRef = await addDoc(collection(db, "issues"), {
+                description: values.description,
+                reporterId: values.reporter,
+                userIds: [values.assignee],
+                descriptionText: values.description,
+                listPosition: 0,
+                estimate: 0,
+                timeRemaining: 0,
+                timeSpent: 0,
+                projectId: project.id,
+                status: "backlog",
+                title: values.shortSummary,
+                type: values.issueType,
+                priority: values.priority,
+                createdAt: Timestamp.now(),
+            });
+            const projectIssues = {
+                id: docRef.id,
+                title: values.shortSummary,
+                userIds: [values.assignee],
+                listPosition: 0,
+                priority: values.priority,
+                status: "backlog",
+                type: values.issueType,
+            };
+            const issueRef = doc(db, "projectss", project.id);
+            await updateDoc(issueRef, {
+                issues: arrayUnion(projectIssues),
+            });
+        } catch (err) {
+            alert(err);
+        }
+        actions.resetForm();
+        onClose();
     };
+
     return (
         <Formik
             initialValues={{

@@ -1,6 +1,5 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import history from "../shared/utils/BrowserHistory";
 
 const Sidebar = ({ project }) => {
     const navigate = useNavigate();
@@ -14,7 +13,7 @@ const Sidebar = ({ project }) => {
                 </div>
             </div>
             <div className="projectLinks">
-                <div onClick={() => navigate("board")} className="linkItem">
+                <div onClick={() => navigate("")} className="linkItem">
                     <div>
                         <span className="material-symbols-outlined">
                             credit_card

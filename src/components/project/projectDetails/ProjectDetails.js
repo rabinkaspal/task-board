@@ -1,4 +1,3 @@
-// import tasksData from "./data/tasksData";
 import { doc, getDoc } from "firebase/firestore";
 import db from "../../../firebase/firebase-config";
 import { useParams } from "react-router-dom";

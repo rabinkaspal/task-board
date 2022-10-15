@@ -4,7 +4,8 @@ import { useField } from "formik";
 import Select from "react-select";
 
 const MultiDropDown = ({ label, ...props }) => {
-    const [field, meta] = useField(props);
+    // const [field, meta] = useField(props);
+    const [meta] = useField(props);
 
     return (
         <div className="form-control">

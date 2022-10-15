@@ -8,8 +8,6 @@ import React, {
 import ReactDOM from "react-dom";
 import useOnOutsideClick from "../hooks/useOnOutsideClick";
 
-const renderLink = () => {};
-
 const Modal = ({
     isOpen: propsIsOpen,
     type,

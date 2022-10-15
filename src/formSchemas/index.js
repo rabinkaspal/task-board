@@ -23,11 +23,12 @@ export const issueCreateSchema = yup.object().shape({
         .required("This field is required."),
     topics: yup
         .array()
+        // .of(
+        //     yup.object().shape({
+        //         label: yup.string().required(),
+        //         value: yup.string().required(),
+        //     })
+        // )
         .min(3, "Pick at least 1 topic")
-        .of(
-            yup.object().shape({
-                label: yup.string().required(),
-                value: yup.string().required(),
-            })
-        ),
+        .required("at least one is required"),
 });

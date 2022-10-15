@@ -250,8 +250,9 @@ button.linkItem.unreleased h4 {
     margin: 0;
     margin-top: 10px;
 }
-
+/* a.button */
 a.button {
+    font-family: inherit;
     text-decoration: none;
     color: #535353;
     padding: 10px 12px;
@@ -333,13 +334,24 @@ select:focus {
     transform: translateY(-6px);
 }
 
-.boardFilters a {
+.boardFilters button {
+    border: none;
     background-color: transparent;
-    font-size: 0.9rem;
     cursor: pointer;
+    font-family: inherit;
+    text-decoration: none;
+    color: #535353;
+    padding: 10px 12px;
+    border-radius: 3px;
+    margin-right: 10px;
+    font-size: 13px;
 }
 
-.boardFilters a.button.selected {
+.boardFilters button:hover {
+    background: #ededed;
+}
+
+.boardFilters button.selected {
     border: 1px solid #0d64e6;
     background: #ecf2ff;
     color: #105cce;
