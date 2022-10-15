@@ -372,12 +372,12 @@ select:focus {
 .tasksContainer {
     display: flex;
     flex-direction: column;
-    gap: 10px;
     min-height: 400px;
 }
 
 .tasksContainer a {
     text-decoration: none;
+    outline: none;
 }
 
 .taskCard {
@@ -388,6 +388,10 @@ select:focus {
     border-radius: 4px;
     box-shadow: 0px 2px 4px rgba(223, 224, 225, 0.749);
     cursor: pointer;
+}
+
+.taskCard:not(last-child) {
+    margin-bottom: 10px;
 }
 
 .taskCard p.taskTitle {

@@ -8,6 +8,7 @@ const IssueDetail = ({ project, onSave, onClose }) => {
         <div>
             IssueDetail <br />
             Issue Id: {params.issueId}
+            <div dangerouslySetInnerHTML={{ __html: project.description }} />
             <button onClick={onClose}>Close Modal</button>
         </div>
     );
