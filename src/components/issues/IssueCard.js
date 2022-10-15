@@ -27,28 +27,32 @@ const IssueCard = ({ issue, index, users }) => {
     ];
 
     const getItemStyle = (isDragging, draggableStyle) => ({
-        // some basic styles to make the items look a bit nicer
-        userSelect: "none",
+        // userSelect: "none",
+        transform: isDragging ? "rotateZ(3deg)" : "",
         // change background colour if dragging
-        background: isDragging ? "rgb(248 234 255)" : "",
-
+        // background: isDragging ? "rgb(248 234 255)" : "",
         // styles we need to apply on draggables
-        ...draggableStyle,
+        // ...draggableStyle,
     });
 
     return (
         <Draggable draggableId={issue.id} index={index}>
             {(provided, snapshot) => (
-                <NavLink to={`issues/${issue.id}`}>
+                <NavLink
+                    to={`issues/${issue.id}`}
+                    ref={provided.innerRef}
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}
+                >
                     <div
                         className="taskCard"
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                        style={getItemStyle(
-                            snapshot.isDragging,
-                            provided.draggableProps.style
-                        )}
+                        style={{
+                            ...getItemStyle(
+                                snapshot.isDragging &&
+                                    !snapshot.isDropAnimating,
+                                provided.draggableProps.style
+                            ),
+                        }}
                     >
                         <p className="taskTitle">{title}</p>
                         <div className="taskInfoContainer">

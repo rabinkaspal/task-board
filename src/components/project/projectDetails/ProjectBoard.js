@@ -80,9 +80,9 @@ const ProjectBoard = ({ project, updateProjectIssues }) => {
     // };
 
     const getListStyle = isDraggingOver => ({
-        background: isDraggingOver ? "#b4d2ff" : "",
+        // background: isDraggingOver ? "#b4d2ff" : "",
         borderRadius: "4px",
-        padding: isDraggingOver ? "4px" : "",
+        // padding: isDraggingOver ? "4px" : "",
     });
 
     return (
