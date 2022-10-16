@@ -1,6 +1,8 @@
 import React from "react";
 
 const ProfileCard = ({ user }) => {
+    const email = user.email || user.providerData[0].email;
+    const username = user.username || email.slice(0, email.indexOf("@"));
     return (
         <>
             <div className="profile-card">
@@ -10,10 +12,10 @@ const ProfileCard = ({ user }) => {
                         Name: <span>{user.displayName}</span>
                     </p>
                     <p>
-                        Username: <span>{user.reloadUserInfo.screenName}</span>
+                        Username: <span>{username}</span>
                     </p>
                     <p>
-                        Email: <span>{user.email}</span>
+                        Email: <span>{email}</span>
                     </p>
                     <p>
                         User ID: <span>{user.uid}</span>

@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import { BiPlus } from "react-icons/bi";
-import { useAuthContext } from "../../../context/AuthContext";
 
-const ProjectHeader = ({ logOut }) => {
-    const { user } = useAuthContext();
+const ProjectHeader = ({ user, logOut }) => {
+    const email = user.email || user.providerData[0].email;
+    const username = user.username || email.slice(0, email.indexOf("@"));
     return (
         <NavHeader>
             <NavMenu>
@@ -23,19 +23,18 @@ const ProjectHeader = ({ logOut }) => {
                     </a>
                 </NavItem> */}
                 <NavItem>
-                    <ProfileButton>
+                    <ProfileIcon>
                         <img src={user.photoURL} alt={user.displayName} />
                         <UserInfo>
                             <p>
-                                <span>{user.displayName}</span>@
-                                {user.username || user.email.slice(0, -10)}
+                                <span>{user.displayName}</span>@{username}
                             </p>
 
                             <button onClick={logOut}>
-                                <p>Log Out</p>
+                                <p className="logout">Log Out</p>
                             </button>
                         </UserInfo>
-                    </ProfileButton>
+                    </ProfileIcon>
                 </NavItem>
             </NavMenu>
         </NavHeader>
@@ -47,7 +46,7 @@ const NavHeader = styled.nav`
     border-bottom: 0 solid #0747a6;
     box-sizing: border-box;
     color: #deebff;
-    padding: 0 10px;
+    padding: 0 15px;
     position: fixed;
     left: 0;
     top: 0;
@@ -61,6 +60,7 @@ const NavMenu = styled.ul`
     list-style: none;
     display: flex;
     gap: 10px;
+    padding: 0;
 `;
 
 const NavItem = styled.li`
@@ -81,9 +81,10 @@ const NavItem = styled.li`
     }
 `;
 
-const ProfileButton = styled.button`
+const ProfileIcon = styled.div`
     background: none;
-    border: none;
+    display: flex;
+    align-items: center;
     position: relative;
 
     & img {
@@ -101,10 +102,9 @@ const ProfileButton = styled.button`
 const UserInfo = styled.div`
     display: none;
     position: absolute;
-    padding: 20px 0;
     min-width: 200px;
     top: 45px;
-    right: 0px;
+    right: -8px;
     background: white;
     border: 1px solid #dedede;
     border-radius: 4px;
@@ -123,12 +123,16 @@ const UserInfo = styled.div`
         right: 16px;
     }
 
+    & p.logout {
+        font-size: 14px;
+        color: #5a5858;
+    }
+
     & p {
-        padding: 10px 20px;
+        padding: 15px 20px;
         text-align: left;
         margin: 0;
         border-bottom: 1px solid #eee;
-        padding-bottom: 15px;
 
         &:last-child {
             border: none;

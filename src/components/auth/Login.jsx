@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import githubIcon from "../../images/svgs/github.svg";
+// import githubIcon from "../../images/svgs/github.svg";
 import { useLogin } from "../../hooks/useLogin";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useAuthContext } from "../../context/AuthContext";
 import PageLoading from "../shared/PageLoading";
+import { AiFillGithub, AiFillGoogleCircle } from "react-icons/ai";
 
 const Login = () => {
     const userLoggedIn = localStorage.getItem("userLoggedIn") || false;
@@ -12,9 +13,9 @@ const Login = () => {
     const {
         loginWithGithub,
         loginWithGoogle,
-        logOut,
         error,
-        isPending,
+        isGooglePending,
+        isGithubPending,
     } = useLogin();
 
     const { user, dispatch } = useAuthContext();
@@ -53,31 +54,36 @@ const Login = () => {
                     <div className="buttonContainer">
                         <button
                             onClick={() => handleLogin("github")}
-                            disabled={isPending}
+                            disabled={isGithubPending || isGooglePending}
                         >
-                            <img
+                            {/* <img
                                 src={githubIcon}
                                 width="25px"
                                 height="25px"
                                 alt="gh icon"
-                            />
-                            {isPending ? "Logging in..." : "Login with Github"}
+                            /> */}
+                            <AiFillGithub size={"25px"} />
+                            {isGithubPending
+                                ? "Logging in..."
+                                : "Login with Github"}
                         </button>
                         <button
                             onClick={() => handleLogin("google")}
-                            disabled={isPending}
+                            disabled={isGithubPending || isGooglePending}
                         >
-                            <img
+                            {/* <img
                                 src={githubIcon}
                                 width="25px"
                                 height="25px"
                                 alt="gh icon"
-                            />
-                            Login with Google
+                            /> */}
+                            <AiFillGoogleCircle size={"25px"} />
+                            {isGooglePending
+                                ? "Logging in..."
+                                : "Login with Google"}
                         </button>
                     </div>
                 </div>
-                <button onClick={logOut}>Logout</button>
             </div>
         </div>
     ) : (

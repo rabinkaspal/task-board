@@ -8,8 +8,10 @@ import Modal from "../../Modal";
 import { useModalHelper } from "../../../hooks/useModalHelper";
 import IssueCreate from "../../forms/IssueCreate/IssueCreate";
 import IssueSearch from "../../forms/IssueSearch/IssueSearch";
+import { useLogin } from "../../../hooks/useLogin";
 
 const ProjectPage = ({ project, updateProjectIssues }) => {
+    const { logOut } = useLogin();
     const {
         open: issueCreateModalOpen,
         close: issueCreateModalClose,
@@ -28,6 +30,7 @@ const ProjectPage = ({ project, updateProjectIssues }) => {
                 <ProjectMenu
                     issueCreateModalOpen={issueCreateModalOpen}
                     issueSearchModalOpen={issueSearchModalOpen}
+                    logOut={logOut}
                 />
                 <Sidebar project={project} />
             </div>
@@ -77,13 +80,13 @@ const ProjectPage = ({ project, updateProjectIssues }) => {
                 {/* <Route path="/" element={<Navigate to="board" />} /> */}
                 <Route
                     path="*"
+                    basename="projects"
                     element={
                         <ProjectBoard
                             project={project}
                             updateProjectIssues={updateProjectIssues}
                         />
                     }
-                    replace
                 />
 
                 {/* <Route
@@ -96,7 +99,7 @@ const ProjectPage = ({ project, updateProjectIssues }) => {
                     }
                 /> */}
 
-                <Route path="settings" element={<NewIssue />} replace />
+                <Route path="settings" element={<NewIssue />} />
             </Routes>
         </div>
     );

@@ -11,7 +11,8 @@ import { useNavigate } from "react-router-dom";
 
 export const useLogin = () => {
     const [error, setError] = useState(null);
-    const [isPending, setIsPending] = useState(false);
+    const [isGithubPending, setIsGithubPending] = useState(false);
+    const [isGooglePending, setIsGooglePending] = useState(false);
 
     const githubProvider = new GithubAuthProvider();
     const googleProvider = new GoogleAuthProvider();
@@ -21,7 +22,7 @@ export const useLogin = () => {
 
     const loginWithGithub = async () => {
         setError(null);
-        setIsPending(true);
+        setIsGithubPending(true);
 
         try {
             const result = await signInWithPopup(getAuth(), githubProvider);
@@ -32,19 +33,20 @@ export const useLogin = () => {
             // const token = credential.accessToken;
 
             const user = result.user;
+            console.log("user", user);
             dispatch({ type: "LOGIN", payload: user });
             localStorage.setItem("userLoggedIn", true);
             localStorage.setItem("loggedInUser", JSON.stringify(user));
         } catch (error) {
             setError(error.message);
         } finally {
-            setIsPending(false);
+            setIsGithubPending(false);
         }
     };
 
     const loginWithGoogle = async () => {
         setError(null);
-        setIsPending(true);
+        setIsGooglePending(true);
 
         try {
             const result = await signInWithPopup(getAuth(), googleProvider);
@@ -56,7 +58,7 @@ export const useLogin = () => {
         } catch (error) {
             setError(error.message);
         } finally {
-            setIsPending(false);
+            setIsGooglePending(false);
         }
     };
 
@@ -73,5 +75,12 @@ export const useLogin = () => {
         }
     };
 
-    return { loginWithGithub, loginWithGoogle, logOut, error, isPending };
+    return {
+        loginWithGithub,
+        loginWithGoogle,
+        logOut,
+        error,
+        isGithubPending,
+        isGooglePending,
+    };
 };

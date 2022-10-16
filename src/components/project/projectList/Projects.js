@@ -11,13 +11,17 @@ const Projects = () => {
     const { document: projects } = useCollection("projects");
     console.log("projects", projects);
 
-    const { user } = useAuthContext();
-    console.log("user: Projects", user);
+    const user =
+        useAuthContext().user ||
+        JSON.parse(localStorage.getItem("loggedInUser"));
+
+    const isUserLoggedIn = localStorage.getItem("userLoggedIn") || false;
+
     const { logOut } = useLogin();
 
-    return user ? (
+    return isUserLoggedIn ? (
         <div style={{ paddingTop: "40px" }}>
-            <ProjectHeader logOut={logOut} />
+            <ProjectHeader user={user} logOut={logOut} />
             {projects && <ProjectList projects={projects} />}
             {user && <ProfileCard user={user} />}
         </div>

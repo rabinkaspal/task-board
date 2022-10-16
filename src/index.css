@@ -119,8 +119,13 @@ body {
     min-width: 220px;
     height: 100vh;
     padding: 20px;
-
     border-right: 1px solid #e3e3e3;
+}
+
+@media screen and (max-width: 900px) {
+    .project-sidebar .nav {
+        display: none;
+    }
 }
 
 .nav .projectDetail {
@@ -299,7 +304,6 @@ a.button:hover {
 }
 
 .boardFilters input[type="text"] {
-    width: 320px;
     padding: 5px;
     height: 35px;
     border: none;
@@ -320,8 +324,8 @@ select:focus {
 }
 
 .boardFilters .taskMembers img {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     transition: all 180ms ease-in;
     color: transparent;
     background-color: #ddd;
@@ -352,23 +356,23 @@ select:focus {
 }
 
 .boardFilters button.selected {
-    border: 1px solid #0d64e6;
     background: #ecf2ff;
     color: #105cce;
 }
 
 .boardContainer {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-auto-columns: minmax(0, 1fr);
+    grid-auto-flow: column;
     gap: 12px;
     align-items: flex-start;
+    min-width: 700px;
 }
 
 .board {
     background: #f4f5f7;
     gap: 20px;
     padding: 15px 10px;
-    min-width: 250px;
     border-radius: 4px;
 }
 
@@ -379,6 +383,9 @@ select:focus {
     color: rgb(73, 73, 73);
     margin-bottom: 20px;
     font-size: 12px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .tasksContainer {
@@ -433,7 +440,7 @@ select:focus {
 
 .taskMembers img {
     width: 30px;
-    aspect-ratio: 1;
+    height: 30px;
     object-fit: contain;
     background-color: #ddd;
     border-radius: 50%;
@@ -660,6 +667,26 @@ div.error {
     justify-content: space-between;
 }
 
+@media screen and (max-width: 480px) {
+    .formBody {
+        margin-bottom: 0px;
+    }
+    .formContainer {
+        margin: 20px;
+    }
+    .buttonContainer {
+        flex-direction: column;
+    }
+    .buttonContainer button {
+        justify-content: center;
+    }
+    .buttonContainer button:not(:last-child) {
+        margin-bottom: 10px;
+    }
+    .buttonContainer button svg {
+        margin-right: 10px;
+    }
+}
 .buttonContainer button {
     background: #0052cc;
     color: white;
@@ -671,6 +698,7 @@ div.error {
     font-weight: 600;
     gap: 10px;
     cursor: pointer;
+    min-width: max-content;
 }
 
 .buttonContainer button:disabled,
