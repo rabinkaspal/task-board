@@ -10,6 +10,7 @@ import React from "react";
 import svgs from "../../shared/utils/SvgHelper";
 import { Draggable } from "react-beautiful-dnd";
 import { NavLink } from "react-router-dom";
+import { IssuePriorityText } from "../../constants";
 
 const IssueCard = ({ issue, index, users }) => {
     const { title, type, priority, userIds } = issue;
@@ -60,13 +61,28 @@ const IssueCard = ({ issue, index, users }) => {
                                 <span className="taskType">
                                     <img
                                         src={taskTypeIcon[type]}
-                                        alt="task type"
+                                        alt={`Issue type: ${type
+                                            .charAt(0)
+                                            .toUpperCase() + type.slice(1)}`}
+                                        title={
+                                            type.charAt(0).toUpperCase() +
+                                            type.slice(1)
+                                        }
                                     />
                                 </span>
                                 <span className="taskPriority">
                                     <img
                                         src={taskPriorityIcon[priority]}
-                                        alt="medium"
+                                        alt={`${
+                                            IssuePriorityText[
+                                                5 - parseInt(priority)
+                                            ]
+                                        } Priority Icon`}
+                                        title={`${
+                                            IssuePriorityText[
+                                                5 - parseInt(priority)
+                                            ]
+                                        } Priority`}
                                     />
                                 </span>
                             </div>

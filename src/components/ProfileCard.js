@@ -18,7 +18,7 @@ const ProfileCard = ({ user }) => {
                         Email: <span>{email}</span>
                     </p>
                     <p>
-                        User ID: <span>{user.uid}</span>
+                        User ID: <span>{user.id}</span>
                     </p>
                 </div>
             </div>

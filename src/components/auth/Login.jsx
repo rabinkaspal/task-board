@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 // import githubIcon from "../../images/svgs/github.svg";
-import { useLogin } from "../../hooks/useLogin";
+import { getUser, useLogin } from "../../hooks/useLogin";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useAuthContext } from "../../context/AuthContext";
 import PageLoading from "../shared/PageLoading";
@@ -22,11 +22,21 @@ const Login = () => {
     console.log("user from state", user);
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(getAuth(), user => {
-            dispatch({ type: "AUTH_IS_READY", payload: user });
-            if (user) {
-                navigate("/projects");
-                localStorage.setItem("loggedInUser", JSON.stringify(user));
+        const unsubscribe = onAuthStateChanged(getAuth(), authUser => {
+            if (authUser) {
+                if (authUser.email || authUser.providerData[0].email) {
+                    dispatch({
+                        type: "AUTH_IS_READY",
+                        payload: getUser(authUser),
+                    });
+                    localStorage.setItem(
+                        "loggedInUser",
+                        JSON.stringify(getUser(authUser))
+                    );
+                    navigate("/projects");
+                }
+            } else {
+                console.log("Did not get a user");
             }
         });
         return unsubscribe;
@@ -35,10 +45,8 @@ const Login = () => {
     const handleLogin = async medium => {
         if (medium === "github") {
             await loginWithGithub();
-            navigate("/projects");
         } else if (medium === "google") {
             await loginWithGoogle();
-            console.log("Login with google");
         }
     };
 
@@ -63,9 +71,11 @@ const Login = () => {
                                 alt="gh icon"
                             /> */}
                             <AiFillGithub size={"25px"} />
-                            {isGithubPending
-                                ? "Logging in..."
-                                : "Login with Github"}
+                            <p>
+                                {isGithubPending
+                                    ? "Logging in..."
+                                    : "Login with Github"}
+                            </p>
                         </button>
                         <button
                             onClick={() => handleLogin("google")}
@@ -78,9 +88,11 @@ const Login = () => {
                                 alt="gh icon"
                             /> */}
                             <AiFillGoogleCircle size={"25px"} />
-                            {isGooglePending
-                                ? "Logging in..."
-                                : "Login with Google"}
+                            <p>
+                                {isGooglePending
+                                    ? "Logging in..."
+                                    : "Login with Google"}
+                            </p>
                         </button>
                     </div>
                 </div>

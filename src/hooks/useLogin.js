@@ -9,6 +9,17 @@ import {
 import { useAuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
+export const getUser = userObject => {
+    const email = userObject.email || userObject.providerData[0].email;
+
+    return {
+        id: userObject.uid,
+        displayName: userObject.displayName,
+        photoURL: userObject.photoURL,
+        email,
+    };
+};
+
 export const useLogin = () => {
     const [error, setError] = useState(null);
     const [isGithubPending, setIsGithubPending] = useState(false);
@@ -19,6 +30,18 @@ export const useLogin = () => {
 
     const { dispatch } = useAuthContext();
     const navigate = useNavigate();
+
+    const verifyAndDispatchLogin = user => {
+        if (!(user.email || user.providerData[0].email)) {
+            console.log("signing user out");
+            signOut(getAuth());
+            throw new Error("No email address found");
+        }
+        dispatch({ type: "LOGIN", payload: getUser(user) });
+        localStorage.setItem("userLoggedIn", true);
+        localStorage.setItem("loggedInUser", JSON.stringify(getUser(user)));
+        navigate("/projects");
+    };
 
     const loginWithGithub = async () => {
         setError(null);
@@ -31,12 +54,7 @@ export const useLogin = () => {
             //access token for Github API
             // const credential = GithubAuthProvider.credentialFromResult(result);
             // const token = credential.accessToken;
-
-            const user = result.user;
-            console.log("user", user);
-            dispatch({ type: "LOGIN", payload: user });
-            localStorage.setItem("userLoggedIn", true);
-            localStorage.setItem("loggedInUser", JSON.stringify(user));
+            verifyAndDispatchLogin(result.user);
         } catch (error) {
             setError(error.message);
         } finally {
@@ -51,10 +69,7 @@ export const useLogin = () => {
         try {
             const result = await signInWithPopup(getAuth(), googleProvider);
             if (!result) throw new Error("Could not complete action.");
-            const user = result.user;
-            dispatch({ type: "LOGIN", payload: user });
-            localStorage.setItem("userLoggedIn", true);
-            localStorage.setItem("loggedInUser", JSON.stringify(user));
+            verifyAndDispatchLogin(result.user);
         } catch (error) {
             setError(error.message);
         } finally {

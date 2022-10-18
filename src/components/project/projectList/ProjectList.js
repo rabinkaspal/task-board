@@ -16,9 +16,12 @@ const ProjectCard = styled.div`
     border-radius: 4px;
     display: flex;
     flex-direction: column;
-    gap: 15px;
     align-items: center;
     transition: all 0.3s ease-out;
+
+    & > *:not(:last-child) {
+        margin-bottom: 15px;
+    }
 
     &:hover {
         box-shadow: 2px 4px 5px 2px #ddd;
@@ -91,7 +94,7 @@ function ProjectList({ projects }) {
                 <p>
                     Only projects you've been assigned to will appear here.
                     Following are demo projects you are already a member of and
-                    can make changes.
+                    can make changes to.
                 </p>
                 <p>
                     If you don't see the projects you are supposed to see, ask
@@ -100,25 +103,20 @@ function ProjectList({ projects }) {
             </PageInfo>
             <ProjectCardContainer>
                 {projects &&
-                    [...projects, ...projects, ...projects].map(
-                        (project, i) => (
-                            <Link key={i} to={project.id}>
-                                <ProjectCard>
-                                    <img
-                                        src={project.iconUrl}
-                                        alt={project.name}
-                                    />
-                                    <h2>{project.name}</h2>
-                                    {/* <div
+                    projects.map((project, i) => (
+                        <Link key={i} to={project.id}>
+                            <ProjectCard>
+                                <img src={project.iconUrl} alt={project.name} />
+                                <h2>{project.name}</h2>
+                                {/* <div
                                     className="desc"
                                     dangerouslySetInnerHTML={{
                                         __html: project.description,
                                     }}
                                 /> */}
-                                </ProjectCard>
-                            </Link>
-                        )
-                    )}
+                            </ProjectCard>
+                        </Link>
+                    ))}
             </ProjectCardContainer>
         </ProjectContainer>
     );

@@ -57,10 +57,7 @@ const ProjectBoard = ({ project, updateProjectIssues }) => {
         });
     };
 
-    //only logged in user will be able to set userFlag as true
-    const setFilterUserIds = (userId, userFlag) => {
-        if (userFlag) setFilterIssuesUserIds([]);
-
+    const setFilterUserIds = userId => {
         const idExists = filterIssuesUserIds.includes(userId);
         if (idExists) {
             setFilterIssuesUserIds(prevIds =>
@@ -90,6 +87,8 @@ const ProjectBoard = ({ project, updateProjectIssues }) => {
                     setFilterUserIds={setFilterUserIds}
                     filterIssuesUserIds={filterIssuesUserIds}
                     setFilterText={setFilterText}
+                    setFilterIssuesUserIds={setFilterIssuesUserIds}
+                    filterText={filterText}
                 />
                 <div className="boardContainer">
                     <DragDropContext

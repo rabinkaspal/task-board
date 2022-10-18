@@ -1,12 +1,15 @@
 import React, { useEffect, useMemo } from "react";
 import { useAuthContext } from "../../context/AuthContext";
 import { debounce } from "lodash";
+import { useRef } from "react";
 
 const IssueFilters = ({
     projectUsers: users,
     filterIssuesUserIds,
     setFilterUserIds,
     setFilterText,
+    setFilterIssuesUserIds,
+    filterText,
 }) => {
     const user =
         useAuthContext().user ||
@@ -24,6 +27,19 @@ const IssueFilters = ({
     //         };
     //     }
     // }
+
+    const inputRef = useRef();
+
+    const clearFilters = () => {
+        setFilterText("");
+        setFilterIssuesUserIds([]);
+        inputRef.current.value = "";
+    };
+
+    const setFilterOnlyMyIssues = () => {
+        setFilterIssuesUserIds([]);
+        setFilterUserIds(user.uid);
+    };
 
     const changeHandler = event => {
         setFilterText(event.target.value);
@@ -47,6 +63,7 @@ const IssueFilters = ({
                     alt="gh"
                 />
                 <input
+                    ref={inputRef}
                     type="text"
                     placeholder="Search Issues"
                     onChange={debouncedChangeHandler}
@@ -74,7 +91,7 @@ const IssueFilters = ({
                         className={`button ${
                             isUserFilterSet(user.uid) ? "selected" : ""
                         }`}
-                        onClick={() => setFilterUserIds(user.uid, true)}
+                        onClick={setFilterOnlyMyIssues}
                     >
                         <span>Only My Issues</span>
                     </button>
@@ -82,6 +99,11 @@ const IssueFilters = ({
                 <button className="button">
                     <span>Recently Updated</span>
                 </button>
+                {(filterIssuesUserIds.length > 0 || filterText !== "") && (
+                    <button className="button link" onClick={clearFilters}>
+                        <span>Clear All</span>
+                    </button>
+                )}
             </div>
         </div>
     );

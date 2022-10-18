@@ -19,20 +19,20 @@ export const IssuePriority = {
     LOWEST: "1",
 };
 
-export const IssueTypeCopy = {
+export const IssueTypeText = {
     [IssueType.TASK]: "Task",
     [IssueType.BUG]: "Bug",
     [IssueType.STORY]: "Story",
 };
 
-export const IssueStatusCopy = {
+export const IssueStatusText = {
     [IssueStatus.BACKLOG]: "Backlog",
     [IssueStatus.SELECTED]: "Selected For Development",
     [IssueStatus.INPROGRESS]: "In Progress",
     [IssueStatus.COMPLETED]: "Completed",
 };
 
-export const IssuePriorityCopy = {
+export const IssuePriorityText = {
     [IssuePriority.HIGHEST]: "Highest",
     [IssuePriority.HIGH]: "High",
     [IssuePriority.MEDIUM]: "Medium",

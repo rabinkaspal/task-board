@@ -13,7 +13,12 @@ const ProjectInfo = ({ projectName }) => {
                 </p>
                 <h2>Kanban Board</h2>
             </div>
-            <a className="button" href="/">
+            <a
+                className="button"
+                href="https://github.com/rabinkaspal/task-board"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
                 <img src={ghIcon} alt="gh" />
                 <span>Github Repo</span>
             </a>

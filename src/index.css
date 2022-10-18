@@ -30,6 +30,7 @@ body {
 }
 
 .projectBoard {
+    user-select: none;
     display: flex;
 }
 
@@ -44,21 +45,12 @@ body {
     width: 60px;
     /* width: 200px; */
     transform: translateZ(0px);
-    transition: all 0.2s ease-in;
+    transition: all 0.3s ease-in;
 }
 
 .project-menu:hover {
     width: 200px;
     box-shadow: 1px 0px 15px #000000e8;
-}
-
-.project-menu:hover button {
-    width: 200px;
-}
-
-.project-menu:hover button p {
-    display: block;
-    opacity: 1;
 }
 
 .project-menu a span {
@@ -69,44 +61,57 @@ body {
 }
 
 .project-menu .menu {
+    user-select: none;
     height: calc(100% - 78px);
     margin-bottom: auto;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    align-items: flex-start;
-}
-
-.project-menu button:hover {
-    background: #ffffff1f;
+    align-items: auto;
 }
 
 .project-menu button {
     padding: 10px 15px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    /* gap: 10px; */
     border: none;
     color: white;
     text-transform: uppercase;
     font-weight: bold;
     background: transparent;
     cursor: pointer;
+    width: 100%;
+}
+.project-menu button:hover {
+    background: #ffffff1f;
 }
 
 .project-menu button p {
-    display: none;
     margin: 0;
     font-weight: bold;
     font-size: 0.7rem;
     word-break: keep-all;
     opacity: 0;
-    transition: all 0.2s ease;
     text-align: start;
+    padding: 0 12px;
+    min-width: max-content;
+    margin-left: -50px;
+    transition: all 0.3s ease-out;
+    transition-delay: 0.1s;
 }
+
+.project-menu:hover button p {
+    margin-left: 0;
+    opacity: 1;
+}
+
 .project-menu button span {
     color: white;
-    font-size: 30px;
+    font-size: 25px;
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
 }
 
 .project-sidebar {
@@ -131,10 +136,14 @@ body {
 .nav .projectDetail {
     display: flex;
     flex-direction: row;
-    gap: 12px;
     align-items: center;
     margin-bottom: 20px;
 }
+
+.nav .projectDetail > * {
+    margin-right: 12px;
+}
+
 .nav .projectDetail img {
     width: 40px;
     height: 40px;
@@ -231,6 +240,7 @@ button.linkItem.unreleased h4 {
 
 .boardContent {
     padding: 25px;
+    width: 100%;
 }
 
 .boardHeader {
@@ -238,6 +248,7 @@ button.linkItem.unreleased h4 {
     justify-content: space-between;
     align-items: flex-end;
     margin-bottom: 20px;
+    min-width: 700px;
 }
 
 .boardInfo .breadcrumbs {
@@ -275,32 +286,43 @@ a.button:hover {
 
 .boardHeader a.button {
     display: flex;
+    min-width: max-content;
 }
 
 .boardHeader a.button img {
     width: 17px;
-    aspect-ratio: 1;
-    margin-right: 14px;
+    height: 17px;
+    margin-right: 8px;
 }
 
 .boardFilters {
     display: flex;
-    gap: 15px;
     align-items: center;
     margin-bottom: 25px;
+    min-width: 700px;
+}
+
+.boardFilters > * {
+    margin-right: 15px;
+}
+.boardFilters .taskMembers {
+    padding-right: 10px;
 }
 
 .boardFilters span.searchField {
     display: flex;
     align-items: center;
-    border: 1px solid #b7b7b7;
-    border-radius: 2px;
+    border: 1px solid #e8e9eb;
+    border-radius: 3px;
+    background: #f4f5f7;
 }
 
 .boardFilters span.searchField img {
     width: 22px;
-    aspect-ratio: 1;
+    height: 22px;
+    object-fit: contain;
     margin: 0 5px;
+    opacity: 0.55;
 }
 
 .boardFilters input[type="text"] {
@@ -310,6 +332,7 @@ a.button:hover {
     font-family: inherit;
     font-size: 0.9rem;
     color: #5e5e5e;
+    background-color: transparent;
 }
 
 input:focus,
@@ -358,6 +381,19 @@ select:focus {
 .boardFilters button.selected {
     background: #ecf2ff;
     color: #105cce;
+}
+
+.boardFilters button.link {
+    border-left: 1px solid #dedede;
+    border-radius: 0;
+    padding: 7px 0;
+    margin-left: 10px;
+    padding-left: 20px;
+}
+
+.boardFilters button.link:hover {
+    background: transparent;
+    color: #707070;
 }
 
 .boardContainer {
@@ -636,7 +672,6 @@ div.error {
     width: max-content;
     padding: 30px;
     border: 1px solid #e1e1e1;
-    margin-bottom: 70px;
 }
 
 .formBody h2 {
@@ -662,30 +697,11 @@ div.error {
     display: flex;
     flex-direction: row;
     margin-top: 20px;
-
-    gap: 16px;
     justify-content: space-between;
 }
 
-@media screen and (max-width: 480px) {
-    .formBody {
-        margin-bottom: 0px;
-    }
-    .formContainer {
-        margin: 20px;
-    }
-    .buttonContainer {
-        flex-direction: column;
-    }
-    .buttonContainer button {
-        justify-content: center;
-    }
-    .buttonContainer button:not(:last-child) {
-        margin-bottom: 10px;
-    }
-    .buttonContainer button svg {
-        margin-right: 10px;
-    }
+.buttonContainer > *:not(:last-child) {
+    margin-right: 10px;
 }
 .buttonContainer button {
     background: #0052cc;
@@ -695,10 +711,19 @@ div.error {
     border-radius: 6px;
     display: flex;
     align-items: center;
-    font-weight: 600;
-    gap: 10px;
     cursor: pointer;
     min-width: max-content;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: inherit;
+    -webkit-font-smoothing: subpixel-antialiased;
+}
+
+.buttonContainer button svg {
+    margin-right: 10px;
+}
+.buttonContainer button p {
+    margin: 0;
 }
 
 .buttonContainer button:disabled,
@@ -719,11 +744,13 @@ div.error {
 
 /* GIthub profile card */
 .profile-card {
+    position: fixed;
+    bottom: 0;
+    left: 0;
     text-align: center;
     background-color: #ffffff;
     border-radius: 3px;
     padding: 16px 20px;
-    margin: 0 auto 20px;
     width: max-content;
     border: 1px solid #e1e1e1;
     display: flex;
@@ -732,9 +759,9 @@ div.error {
 
 .profile-card .profile-img {
     border-radius: 50%;
-    width: 100px;
-    height: 100px;
-    border: 3px solid hsl(25, 97%, 53%);
+    width: 20px;
+    height: 20px;
+    border: 1px solid hsl(25, 97%, 53%);
     display: flex;
     flex: 0 0 auto;
 }
@@ -745,15 +772,16 @@ div.error {
 
 .profile-card p {
     color: #0d58c2;
-    font-size: 14px;
+    font-size: 8px;
     font-weight: bold;
     text-align: left;
     margin: 0 0 10px 0;
+    margin: 0;
 }
 
 .profile-card span {
     color: #646464;
-    font-size: 14px;
+    font-size: 10px;
     font-weight: 400;
 }
 
@@ -768,5 +796,36 @@ div.error {
 
     100% {
         transform: rotate(360deg);
+    }
+}
+
+/* responsive */
+@media screen and (max-width: 480px) {
+    .container {
+        width: 80%;
+    }
+
+    /* Login */
+    /* .formContainer {
+        height: auto;
+    } */
+    .formBody {
+        padding: 16px;
+        margin-top: 10rem;
+    }
+    .buttonContainer {
+        flex-direction: column;
+    }
+    .buttonContainer button {
+        justify-content: center;
+    }
+    .buttonContainer button:not(:last-child) {
+        margin: 0 0 10px 0;
+    }
+}
+@media screen and (max-width: 750px) {
+    /* sidebar */
+    .project-sidebar {
+        display: none;
     }
 }

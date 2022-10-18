@@ -1,7 +1,7 @@
 import React from "react";
 import { Droppable } from "react-beautiful-dnd";
 import IssueCard from "./issues/IssueCard";
-import { IssueStatusCopy } from "../constants";
+import { IssueStatusText } from "../constants";
 
 const Board = ({
     project,
@@ -39,7 +39,7 @@ const Board = ({
     return (
         <div className="board">
             <span className="boardTitle">
-                {IssueStatusCopy[status]}{" "}
+                {IssueStatusText[status]}{" "}
                 {sortedListIssues ? sortedListIssues.length : 0}
             </span>
             <Droppable droppableId={status}>
