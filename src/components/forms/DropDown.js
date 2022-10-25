@@ -2,7 +2,7 @@ import React from "react";
 
 import { useField } from "formik";
 
-const DropDown = ({ label, ...props }) => {
+const DropDown = ({ label, options, ...props }) => {
     const [field, meta] = useField(props);
 
     return (
@@ -12,7 +12,14 @@ const DropDown = ({ label, ...props }) => {
                 {...field}
                 {...props}
                 className={meta.touched && meta.error ? "input-error" : ""}
-            />
+            >
+                {options &&
+                    options.map((option, key) => (
+                        <option key={key} value={option.value}>
+                            {option.label}
+                        </option>
+                    ))}
+            </select>
             <div className="input-hint">{props.hint}</div>
             {meta.touched && meta.error && (
                 <div className="error">{meta.error}</div>
